@@ -1,0 +1,1 @@
+ALTER TABLE public.contacts DROP COLUMN IF EXISTS new_column_contact_text;
