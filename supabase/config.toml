@@ -1,6 +1,7 @@
 project_id = "xzsflwdtfkcasardtwhm"
 
-# Edge Function: company-search
-# Publicly accessible since it's called from the client without auth
 [functions.company-search]
+verify_jwt = false
+
+[functions.contact-search]
 verify_jwt = false
