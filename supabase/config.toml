@@ -1,8 +1,5 @@
 project_id = "xzsflwdtfkcasardtwhm"
 
-[functions.company-search]
-verify_jwt = false
-
 [functions.contact-search]
 verify_jwt = false
 
