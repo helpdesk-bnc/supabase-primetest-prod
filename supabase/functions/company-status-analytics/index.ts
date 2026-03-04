@@ -17,30 +17,26 @@ Deno.serve(async (req) => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
     );
 
-    // Fetch all companies (status column only) to compute distribution
     const { data, error } = await supabase
       .from("companies")
       .select("status");
 
     if (error) throw error;
 
-    // Aggregate status counts
     const statusCounts: Record<string, number> = {};
-    let total = 0;
-    for (const row of data ?? []) {
+    for (const row of data || []) {
       const status = row.status || "unknown";
       statusCounts[status] = (statusCounts[status] || 0) + 1;
-      total++;
     }
 
-    // Build response with counts and percentages
-    const distribution = Object.entries(statusCounts)
-      .map(([status, count]) => ({
-        status,
-        count,
-        percentage: total > 0 ? Math.round((count / total) * 10000) / 100 : 0,
-      }))
-      .sort((a, b) => b.count - a.count);
+    const total = data?.length || 0;
+    const distribution = Object.entries(statusCounts).map(([status, count]) => ({
+      status,
+      count,
+      percentage: total > 0 ? Math.round((count / total) * 10000) / 100 : 0,
+    }));
+
+    distribution.sort((a, b) => b.count - a.count);
 
     return new Response(
       JSON.stringify({ total_companies: total, distribution }),
