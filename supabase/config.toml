@@ -1,10 +1,10 @@
 project_id = "xzsflwdtfkcasardtwhm"
 
+[functions.company-status-analytics]
+verify_jwt = false
+
 [functions.company-search]
 verify_jwt = false
 
 [functions.contact-search]
-verify_jwt = false
-
-[functions.company-status-analytics]
 verify_jwt = false
